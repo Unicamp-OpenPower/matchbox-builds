@@ -7,7 +7,7 @@ cache:
     - $HOME/.cache/go-build
     - $HOME/gopath/pkg/mod
 env:
-  - VERSION=v1.50.2
+  - VERSION=v0.8.3
 
 before_install:
   - sudo apt-get update
@@ -15,24 +15,29 @@ before_install:
 
 script:
 #  - RELEASE_VERSION=$(cat release_version.txt)
-  - wget https://github.com/rclone/rclone/releases/download/$VERSION/rclone-$VERSION.tar.gz
-  - tar -xzf rclone-$VERSION.tar.gz
-  - mv rclone-$VERSION rclone
-  - cd rclone
-  - go get github.com/rclone/rclone/backend/all github.com/rclone/rclone/cmd github.com/rclone/rclone/cmd/all github.com/rclone/rclone/lib/plugin
-  - go build
+  - wget https://github.com/poseidon/matchbox/archive/v0.8.3.tar.gz
+  - tar -xzf matchbox-$VERSION.tar.gz
+  - mv matchbox-$VERSION matchbox
+  - cd matchbox
+  # - go get github.com/matchbox/matchbox/backend/all github.com/matchbox/matchbox/cmd github.com/matchbox/matchbox/cmd/all github.com/matchbox/matchbox/lib/plugin
+  - sudo cp matchbox /usr/local/bin
+  - sudo useradd -U matchbox
+  - sudo mkdir -p /var/lib/matchbox/assets
+  - sudo chown -R matchbox:matchbox /var/lib/matchbox
+  - sudo cp contrib/systemd/matchbox-local.service /etc/systemd/system/matchbox.service
   - mkdir output
-  - mv rclone output/rclone-$VERSION
+  - mv matchbox output/matchbox-$VERSION
   - ls -la output
+  - ./bin/matchbox -version
 
-#deploy:
-#  provider: script  
-#  script: sudo apt-get install -y lftp; bash ftp_upload.sh
-#  skip_cleanup: true
+# #deploy:
+# #  provider: script  
+# #  script: sudo apt-get install -y lftp; bash ftp_upload.sh
+# #  skip_cleanup: true
 
-notifications:
-  slack:
-    rooms:
-      - secure: "HZy/FgfkrWUPpMkZxRfJsjhBAKpqxlXvhBw3iRXhc3fw6udghc2vv4E0EM/8RtXijQhklG6DXGNKMQal1Uz/e9n1QDdQG7cZIOblJLPnXNARBIVzL8SxCR2hrgVoDyx1LWbxZHgzV/mlgdx9Qit/2RgNAnt2RrOCCBOTOIWbACQcFdnAQCbYYecFfnZyaeplZs8Lg5pTpWxN6OUA8n7UNYUJDblxeFUOYywjLly+DL/tCGTtZhuWjbBbefToJHNfkxh3/uLT3GZfd91k6QCj5t4ZzAG50fv2rGY+04I3aBE4v2QmN54gkSrX8VaeZg1rJKlfnNUo2PCMlZn31if3MODiwVzyJ8DidD9kK1/0TjH4NdS+zRYoQQ6nk6QRAY8MJvS+h7+uFEw5zy3lVniPvn0msODEoJ36n0NSOs/1x/7uJ8qxWyaIO6JCH+DklDaWNEB4OHr4Jp1bl+DFjiOLbFI2NsIQrjLndJ6juA2O4xP1AF4kCFiChEGNDIlEoq4zv3pce8BaJ/OWS8ehPYnxfAmx781bX/pfOaSvpxR4uFEbwbsT3HGXrm9/IQmD2yFu6U8KLaEEoTIBS+hkbAHj66WyEggjWvHslCkNVgmGrN6lfZhEJvYoKg1cAq1MTq5CckiuIZbR6bH8Df/9+04cgei4e20KYkgfchtC84Nmnks="
-    on_success: change
-    on_failure: always
+# notifications:
+#   slack:
+#     rooms:
+#       - secure: "HZy/FgfkrWUPpMkZxRfJsjhBAKpqxlXvhBw3iRXhc3fw6udghc2vv4E0EM/8RtXijQhklG6DXGNKMQal1Uz/e9n1QDdQG7cZIOblJLPnXNARBIVzL8SxCR2hrgVoDyx1LWbxZHgzV/mlgdx9Qit/2RgNAnt2RrOCCBOTOIWbACQcFdnAQCbYYecFfnZyaeplZs8Lg5pTpWxN6OUA8n7UNYUJDblxeFUOYywjLly+DL/tCGTtZhuWjbBbefToJHNfkxh3/uLT3GZfd91k6QCj5t4ZzAG50fv2rGY+04I3aBE4v2QmN54gkSrX8VaeZg1rJKlfnNUo2PCMlZn31if3MODiwVzyJ8DidD9kK1/0TjH4NdS+zRYoQQ6nk6QRAY8MJvS+h7+uFEw5zy3lVniPvn0msODEoJ36n0NSOs/1x/7uJ8qxWyaIO6JCH+DklDaWNEB4OHr4Jp1bl+DFjiOLbFI2NsIQrjLndJ6juA2O4xP1AF4kCFiChEGNDIlEoq4zv3pce8BaJ/OWS8ehPYnxfAmx781bX/pfOaSvpxR4uFEbwbsT3HGXrm9/IQmD2yFu6U8KLaEEoTIBS+hkbAHj66WyEggjWvHslCkNVgmGrN6lfZhEJvYoKg1cAq1MTq5CckiuIZbR6bH8Df/9+04cgei4e20KYkgfchtC84Nmnks="
+#     on_success: change
+#     on_failure: always
