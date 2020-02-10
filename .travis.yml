@@ -26,10 +26,10 @@ script:
   - sudo mkdir -p /var/lib/matchbox/assets
   - sudo chown -R matchbox:matchbox /var/lib/matchbox
   - sudo cp contrib/systemd/matchbox-local.service /etc/systemd/system/matchbox.service
-  - mkdir output
-  - mv matchbox output/matchbox-$VERSION
-  - ls -la output
   - ./bin/matchbox -version
+  - mkdir output
+  - mv matchbox output/matchbox-v$VERSION
+  - ls -la output
 
 # #deploy:
 # #  provider: script  
