@@ -17,6 +17,7 @@ script:
 #  - RELEASE_VERSION=$(cat release_version.txt)
   - wget https://github.com/poseidon/matchbox/archive/v0.8.3.tar.gz
   - tar -xzf $VERSION.tar.gz
+  - ls
   - mv matchbox-$VERSION matchbox
   - cd matchbox
   # - go get github.com/matchbox/matchbox/backend/all github.com/matchbox/matchbox/cmd github.com/matchbox/matchbox/cmd/all github.com/matchbox/matchbox/lib/plugin
