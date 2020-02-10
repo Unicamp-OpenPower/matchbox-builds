@@ -7,11 +7,11 @@ arch:
   - ppc64le
 
 sudo: required
-
+#tem que fazer um fork e tirar esse git clone daqui
 services:
   - docker
 go:
-  - "1.11.x"               #tem que fazer um fork e tirar esse git clone daqui
+  - "1.11.x"
   - "1.12.x"
   - "1.13.x" 
   - "1.13.4"
