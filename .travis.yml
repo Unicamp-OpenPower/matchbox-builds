@@ -7,7 +7,7 @@ cache:
     - $HOME/.cache/go-build
     - $HOME/gopath/pkg/mod
 env:
-  - VERSION=v0.8.3
+  - VERSION=0.8.3
 
 before_install:
   - sudo apt-get update
@@ -15,8 +15,8 @@ before_install:
 
 script:
 #  - RELEASE_VERSION=$(cat release_version.txt)
-  - wget https://github.com/poseidon/matchbox/archive/v0.8.3.tar.gz
-  - tar -xzf $VERSION.tar.gz
+  - wget https://github.com/poseidon/matchbox/archive/v$VERSION.tar.gz
+  - tar -xzf v$VERSION.tar.gz
   - ls
   - mv matchbox-$VERSION matchbox
   - cd matchbox
