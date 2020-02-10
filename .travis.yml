@@ -3,7 +3,7 @@ language: go
 os: linux
 
 arch:
-  # - amd64
+   - amd64
   - ppc64le
 
 sudo: required
@@ -11,51 +11,22 @@ sudo: required
 services:
   - docker
 go:
-  # - "1.11.x"
-  # - "1.12.x"
-  # - "1.13.x" devolver 
+  - "1.11.x"               #tem que fazer um fork e tirar esse git clone daqui
+  - "1.12.x"
+  - "1.13.x" 
   - "1.13.4"
   
 install:
   - GO111MODULE=off go get golang.org/x/lint/golint
 script:
   - make
-# env:
-#   - VERSION=0.8.3
 
 before_install:
   - sudo apt-get update
   - sudo apt-get install build-essential python3 tar wget
 
 script:
-#  - RELEASE_VERSION=$(cat release_version.txt)
-  #- wget https://github.com/poseidon/matchbox/archive/v$VERSION.tar.gz
-  #- tar -xzf v$VERSION.tar.gz
-  #- ls
-  #- mv matchbox-$VERSION matchbox
   - git clone https://github.com/poseidon/matchbox.git
   - cd matchbox
   - make
-  # - go get github.com/matchbox/matchbox/backend/all github.com/matchbox/matchbox/cmd github.com/matchbox/matchbox/cmd/all github.com/matchbox/matchbox/lib/plugin
-  # - sudo cp -r matchbox /usr/local/bin
-  # - sudo useradd -U matchbox
-  # - sudo mkdir -p /var/lib/matchbox/assets
-  # - sudo chown -R matchbox:matchbox /var/lib/matchbox
-  # - sudo cp contrib/systemd/matchbox-local.service /etc/systemd/system/matchbox.service
-  # - ls
   - ./bin/matchbox -version
-  # - mkdir output
-  # - mv matchbox output/matchbox-v$VERSION
-  # - ls -la output
-
-# #deploy:
-# #  provider: script  
-# #  script: sudo apt-get install -y lftp; bash ftp_upload.sh
-# #  skip_cleanup: true
-
-# notifications:
-#   slack:
-#     rooms:
-#       - secure: "HZy/FgfkrWUPpMkZxRfJsjhBAKpqxlXvhBw3iRXhc3fw6udghc2vv4E0EM/8RtXijQhklG6DXGNKMQal1Uz/e9n1QDdQG7cZIOblJLPnXNARBIVzL8SxCR2hrgVoDyx1LWbxZHgzV/mlgdx9Qit/2RgNAnt2RrOCCBOTOIWbACQcFdnAQCbYYecFfnZyaeplZs8Lg5pTpWxN6OUA8n7UNYUJDblxeFUOYywjLly+DL/tCGTtZhuWjbBbefToJHNfkxh3/uLT3GZfd91k6QCj5t4ZzAG50fv2rGY+04I3aBE4v2QmN54gkSrX8VaeZg1rJKlfnNUo2PCMlZn31if3MODiwVzyJ8DidD9kK1/0TjH4NdS+zRYoQQ6nk6QRAY8MJvS+h7+uFEw5zy3lVniPvn0msODEoJ36n0NSOs/1x/7uJ8qxWyaIO6JCH+DklDaWNEB4OHr4Jp1bl+DFjiOLbFI2NsIQrjLndJ6juA2O4xP1AF4kCFiChEGNDIlEoq4zv3pce8BaJ/OWS8ehPYnxfAmx781bX/pfOaSvpxR4uFEbwbsT3HGXrm9/IQmD2yFu6U8KLaEEoTIBS+hkbAHj66WyEggjWvHslCkNVgmGrN6lfZhEJvYoKg1cAq1MTq5CckiuIZbR6bH8Df/9+04cgei4e20KYkgfchtC84Nmnks="
-#     on_success: change
-#     on_failure: always
