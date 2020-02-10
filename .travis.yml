@@ -1,13 +1,27 @@
 language: go
+
 os: linux
-arch: ppc64le
-#go: "1.11.x"
-cache:
-  directories:
-    - $HOME/.cache/go-build
-    - $HOME/gopath/pkg/mod
-env:
-  - VERSION=0.8.3
+
+arch:
+  # - amd64
+  - ppc64le
+
+sudo: required
+
+services:
+  - docker
+go:
+  # - "1.11.x"
+  # - "1.12.x"
+  # - "1.13.x" devolver 
+  - "1.13.4"
+  
+install:
+  - GO111MODULE=off go get golang.org/x/lint/golint
+script:
+  - make
+# env:
+#   - VERSION=0.8.3
 
 before_install:
   - sudo apt-get update
@@ -15,22 +29,24 @@ before_install:
 
 script:
 #  - RELEASE_VERSION=$(cat release_version.txt)
-  - wget https://github.com/poseidon/matchbox/archive/v$VERSION.tar.gz
-  - tar -xzf v$VERSION.tar.gz
-  - ls
-  - mv matchbox-$VERSION matchbox
+  #- wget https://github.com/poseidon/matchbox/archive/v$VERSION.tar.gz
+  #- tar -xzf v$VERSION.tar.gz
+  #- ls
+  #- mv matchbox-$VERSION matchbox
+  - git clone https://github.com/poseidon/matchbox.git
   - cd matchbox
+  - make
   # - go get github.com/matchbox/matchbox/backend/all github.com/matchbox/matchbox/cmd github.com/matchbox/matchbox/cmd/all github.com/matchbox/matchbox/lib/plugin
-  - sudo cp -r matchbox /usr/local/bin
-  - sudo useradd -U matchbox
-  - sudo mkdir -p /var/lib/matchbox/assets
-  - sudo chown -R matchbox:matchbox /var/lib/matchbox
-  - sudo cp contrib/systemd/matchbox-local.service /etc/systemd/system/matchbox.service
-  - ls
+  # - sudo cp -r matchbox /usr/local/bin
+  # - sudo useradd -U matchbox
+  # - sudo mkdir -p /var/lib/matchbox/assets
+  # - sudo chown -R matchbox:matchbox /var/lib/matchbox
+  # - sudo cp contrib/systemd/matchbox-local.service /etc/systemd/system/matchbox.service
+  # - ls
   - ./bin/matchbox -version
-  - mkdir output
-  - mv matchbox output/matchbox-v$VERSION
-  - ls -la output
+  # - mkdir output
+  # - mv matchbox output/matchbox-v$VERSION
+  # - ls -la output
 
 # #deploy:
 # #  provider: script  
