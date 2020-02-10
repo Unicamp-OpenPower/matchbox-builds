@@ -20,7 +20,7 @@ script:
   - mv matchbox-$VERSION matchbox
   - cd matchbox
   # - go get github.com/matchbox/matchbox/backend/all github.com/matchbox/matchbox/cmd github.com/matchbox/matchbox/cmd/all github.com/matchbox/matchbox/lib/plugin
-  - sudo cp matchbox /usr/local/bin
+  - sudo cp -r matchbox /usr/local/bin
   - sudo useradd -U matchbox
   - sudo mkdir -p /var/lib/matchbox/assets
   - sudo chown -R matchbox:matchbox /var/lib/matchbox
