@@ -1,12 +1,11 @@
 language: go
 os: linux
-arch:
-  - amd64
-  - ppc64le
-
+arch: ppc64le
 sudo: required
+
 services:
   - docker
+
 go:
   - "1.11.x"
   - "1.12.x"
@@ -27,3 +26,10 @@ script:
   - cd matchbox
   - make
   - ./bin/matchbox -version
+  
+notifications:
+  slack:
+    rooms:
+      - secure: "FO3N8Iqk0NZ7wwyYH31Hxg25/VU3msmYtNRXVx5hemy8KlXON+E3w5MQiaOxmV37zj/9cVvLJz98rpB9DcxMdZjW7nJgu+G6maUg/RVvP1XdZ2ALlvJQNC36vVo/+uIUna0+qbyiLnCqrCHqB2Lp9lOmf27gZKyEVtolMqP0XwtFGmBat24fU/0QBxNExdIm4uRHJF7MkRMzXJFPZr1fBWlegXD6TNfQf3uB2IVIkktXpsUvjKWOc6dGyxf1TgxqGTOPC3InLOCbZmA3ktbQ3IVkPvom5AUicjKE3sqXndstL35O5YYPFJVPf4Yt15rtWU2WgsHC1+MkF/3pzUSgbONBy3JpF4l7qLPvi1oPxa72GFh8N3AHg20b/qpqhBnzhj9p2c0sSWjt32oEWf3fHtrU4TVk9Ut2uLY23DReb5m95JL99J//4V4EeTBKOK1qRte+1JN6FgQcP9UxeU1jD3njGiP2xMZSHeI6tB4HODGfSo0AtepiIDgEa530DGdXywyvLNgqedhGu9IqRUNVWayzRW1DC6+gByfluzdgFGGUsxL+J7x1A/asHY5y3QUpAGzrz/YBphcOiCQQx6tbTMMj/1EnhyWml5pjlxoDQkPOs/9HM2SguDZhgD19ZGz6GUUKjmNvg7VMC3eod6tiE9QxPWRe0suBuR2VBSYXDzw="
+    on_success: change
+    on_failure: change
